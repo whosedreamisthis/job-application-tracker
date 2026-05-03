@@ -1,11 +1,72 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 @import "shadcn/tailwind.css";
-/*@plugin "tailwindcss-animate";*/
-
+@plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
 
+
+
+.dark {
+  /* Creating a coherent Dark Mode based on the 'Zesty' palette */
+  --background: oklch(0.15 0.05 20);         /* Very Dark Bordeaux (deep wine black) */
+  --foreground: oklch(0.98 0.01 70);        /* Near-white peach (main text) */
+
+  --card: oklch(0.18 0.05 20);
+  --card-foreground: oklch(0.98 0.01 70);
+
+  --popover: oklch(0.18 0.05 20);
+  --popover-foreground: oklch(0.98 0.01 70);
+
+  --primary: oklch(0.66 0.23 20);          /* Keep vibrant primary pink */
+  --primary-foreground: oklch(1 0 0);
+
+  --secondary: oklch(0.4 0.1 70);           /* Deepened orange/rust for contrast */
+  --secondary-foreground: oklch(1 0 0);
+
+  --muted: oklch(0.2 0.05 110);             /* Deep olive green */
+  --muted-foreground: oklch(0.8 0.05 110);
+
+  --accent: oklch(0.4 0.1 180);            /* Deepened Teal/Petrol */
+  --accent-foreground: oklch(1 0 0);
+
+  --destructive: oklch(0.704 0.191 22.216);
+
+  --border: oklch(1 0 0 / 15%);
+  --input: oklch(1 0 0 / 20%);
+  --ring: oklch(0.66 0.23 20);
+
+  --chart-1: oklch(0.66 0.23 20);
+  --chart-2: oklch(0.83 0.14 180);
+  --chart-3: oklch(0.79 0.16 70);
+  --chart-4: oklch(0.94 0.05 110);
+  --chart-5: oklch(0.7 0.14 45);
+
+  --sidebar: oklch(0.18 0.05 20);
+  --sidebar-foreground: oklch(0.98 0.01 70);
+  --sidebar-primary: oklch(0.66 0.23 20);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.4 0.1 180);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(1 0 0 / 15%);
+  --sidebar-ring: oklch(0.66 0.23 20);
+}
+
+/* Restoring the necessary base overrides for your font setup and borders */
+@layer base {
+  html {
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  *, ::after, ::before {
+    border-color: var(--border);
+  }
+
+  body {
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+}
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -48,85 +109,60 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Adding the specific gradient colors from the image as custom color variables */
+  --color-gradient-start: oklch(0.79 0.16 70); /* Warm Salmon/Peach */
+  --color-gradient-end: oklch(0.66 0.23 20);   /* Rich Red-Pink */
 }
 
 :root {
   --radius: 0.625rem;
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-}
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-}
+  /* BASE PALETTE (Matches the colors in image_0.png) */
+  --background: oklch(1 0 0);               /* Pure White */
+  --foreground: oklch(0.35 0.1 20);         /* Very Dark Red/Bordeaux (for main text) */
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
-  }
+  --card: oklch(0.98 0 0);
+  --card-foreground: oklch(0.35 0.1 20);
+
+  --popover: oklch(0.98 0 0);
+  --popover-foreground: oklch(0.35 0.1 20);
+
+  /* Primary Action Color (The vibrant Red-Pink from the color bar) */
+  --primary: oklch(0.66 0.23 20);          /* Vibrant Red-Pink */
+  --primary-foreground: oklch(1 0 0);       /* Pure White text */
+
+  /* Secondary/Accent colors (The lighter Peach/Orange from the color bar) */
+  --secondary: oklch(0.79 0.16 70);         /* Warm Salmon/Peach */
+  --secondary-foreground: oklch(1 0 0);     /* White text */
+
+  /* Muted colors (The lightest green from the color bar) */
+  --muted: oklch(0.94 0.05 110);            /* Very Light Pastel Lime Green */
+  --muted-foreground: oklch(0.45 0.05 110); /* Soft olive green */
+
+  /* Accent colors (The vibrant Teal/Mint from the color bar) */
+  --accent: oklch(0.83 0.14 180);           /* Bright Teal/Mint */
+  --accent-foreground: oklch(1 0 0);        /* White text */
+
+  --destructive: oklch(0.577 0.245 27.325); /* Standard destructive red */
+
+  --border: oklch(0.94 0 0);                /* Very subtle light gray for borders */
+  --input: oklch(0.94 0 0);
+  --ring: oklch(0.66 0.23 20);              /* Ring matches primary Red-Pink */
+
+  /* Chart colors mapped to the diverse food colors */
+  --chart-1: oklch(0.66 0.23 20);          /* Tomato Red-Pink */
+  --chart-2: oklch(0.83 0.14 180);         /* Donut Teal/Mint */
+  --chart-3: oklch(0.79 0.16 70);          /* Salmon/Peach */
+  --chart-4: oklch(0.94 0.05 110);         /* Pastel Lime */
+  --chart-5: oklch(0.7 0.14 45);           /* Burger Brown */
+
+  --sidebar: oklch(0.98 0 0);
+  --sidebar-foreground: oklch(0.35 0.1 20);
+  --sidebar-primary: oklch(0.66 0.23 20);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.83 0.14 180);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.94 0 0);
+  --sidebar-ring: oklch(0.66 0.23 20);
 }
