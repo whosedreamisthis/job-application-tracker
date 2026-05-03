@@ -1,7 +1,8 @@
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import HeroImages from "@/components/HeroImages";
+
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-white">
@@ -29,6 +30,7 @@ export default function Home() {
             </p>
           </div>
         </section>
+        <HeroImages />
       </main>
     </div>
   );
