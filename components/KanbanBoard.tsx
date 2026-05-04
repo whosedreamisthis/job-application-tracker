@@ -26,6 +26,8 @@ import {
 import { Button } from "@/components/ui/button.tsx";
 import board from "@/lib/models/board.ts";
 import CreateJobApplicationDialog from "@/components/CreateJobDialog.tsx";
+import JobApplication from "@/lib/models/models.types.ts";
+import JobApplicationCard from "@/components/JobApplicationCard.tsx";
 
 interface KanbanBoardProps {
   board: Board;
@@ -64,11 +66,15 @@ function DroppableColumn({
   column,
   config,
   boardId,
+  sortedColumns,
 }: {
   column: Column;
   config: ColConfig;
   boardId: string;
+  sortedColumns: Column[];
 }) {
+  const sortedJobs =
+    column.jobApplications.sort((a, b) => a.order - b.order) || [];
   return (
     <Card className="overflow-hidden min-w-75 shrink-0  rounded-none rounded-t-lg border-none shadow-md p-0 mb-10">
       {/* The color class should be on the Header itself */}
@@ -99,6 +105,13 @@ function DroppableColumn({
         </div>
       </CardHeader>
       <CardContent className="space-y-2 pt-4 bg-gray-50/50 min-h-100 rounded-b-lg">
+        {sortedJobs.map((job) => (
+          <SortableJobCard
+            key={job._id}
+            job={{ ...job, columnId: job.columnId || column._id }}
+            columns={sortedColumns}
+          />
+        ))}
         <CreateJobApplicationDialog columnId={column._id} boardId={boardId} />
       </CardContent>
 
@@ -107,8 +120,23 @@ function DroppableColumn({
   );
 }
 
+function SortableJobCard({
+  job,
+  columns,
+}: {
+  job: JobApplication;
+  columns: Column[];
+}) {
+  return (
+    <div>
+      <JobApplicationCard job={job} columns={columns} />
+    </div>
+  );
+}
+
 const KanbanBoard = ({ board, userId }: KanbanBoardProps) => {
   const columns = board.columns;
+  const sortedColumns = columns?.sort((a, b) => a.order - b.order) || [];
 
   return (
     <>
@@ -125,6 +153,7 @@ const KanbanBoard = ({ board, userId }: KanbanBoardProps) => {
                 column={column}
                 config={config}
                 boardId={board._id}
+                sortedColumns={sortedColumns}
               />
             );
           })}

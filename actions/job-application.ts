@@ -4,6 +4,7 @@ import JobApplication from "@/lib/models/job-application";
 import { getSession } from "@/lib/auth/auth";
 import connectDB from "@/lib/db.ts";
 import { Board, Column } from "@/lib/models";
+import { revalidatePath } from "next/cache";
 
 interface JobApplicationData {
   columnId: string;
@@ -92,5 +93,6 @@ export const createJobApplication = async (data: JobApplicationData) => {
     console.error("Column update failed - record not found");
   }
 
+  // revalidatePath();
   return { data: JSON.parse(JSON.stringify(jobApplication)) };
 };
