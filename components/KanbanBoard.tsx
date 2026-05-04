@@ -24,6 +24,8 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu.tsx";
 import { Button } from "@/components/ui/button.tsx";
+import board from "@/lib/models/board.ts";
+import CreateJobApplicationDialog from "@/components/CreateJobDialog.tsx";
 
 interface KanbanBoardProps {
   board: Board;
@@ -96,7 +98,9 @@ function DroppableColumn({
           </DropdownMenu>
         </div>
       </CardHeader>
-      <CardContent className="space-y-2 pt-4 bg-gray-50/50 min-h-100 rounded-b-lg"></CardContent>
+      <CardContent className="space-y-2 pt-4 bg-gray-50/50 min-h-100 rounded-b-lg">
+        <CreateJobApplicationDialog columnId={column._id} boardId={boardId} />
+      </CardContent>
 
       {/* If config.color is a light color, change text-white to text-slate-900 */}
     </Card>
@@ -105,7 +109,7 @@ function DroppableColumn({
 
 const KanbanBoard = ({ board, userId }: KanbanBoardProps) => {
   const columns = board.columns;
-  console.log(columns);
+
   return (
     <>
       <div>

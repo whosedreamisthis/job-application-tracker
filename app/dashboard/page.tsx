@@ -19,9 +19,12 @@ const DashboardPage = async () => {
     userId: session.user.id,
   }).populate({
     path: "columns",
+    populate: {
+      path: "jobApplications",
+      // model: "JobApplication",
+    },
   });
 
-  console.info(`Found board for user ${session.user.id}: ${board}`);
   return (
     <div className="min-h-screen bg-white">
       <div className="container mx-auto p-6">
