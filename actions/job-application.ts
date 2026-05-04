@@ -93,6 +93,6 @@ export const createJobApplication = async (data: JobApplicationData) => {
     console.error("Column update failed - record not found");
   }
 
-  // revalidatePath();
+  revalidatePath("/dashboard");
   return { data: JSON.parse(JSON.stringify(jobApplication)) };
 };

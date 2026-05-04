@@ -26,7 +26,7 @@ import {
 import { Button } from "@/components/ui/button.tsx";
 import board from "@/lib/models/board.ts";
 import CreateJobApplicationDialog from "@/components/CreateJobDialog.tsx";
-import JobApplication from "@/lib/models/models.types.ts";
+import { JobApplication } from "@/lib/models/models.types.ts";
 import JobApplicationCard from "@/components/JobApplicationCard.tsx";
 
 interface KanbanBoardProps {

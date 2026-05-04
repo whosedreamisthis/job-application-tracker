@@ -7,42 +7,26 @@ import mongoose from "mongoose";
 import KanbanBoard from "@/components/KanbanBoard";
 
 async function getBoard(userId: string) {
-  "use cache";
-
   await connectDB();
+  return _getBoard(userId);
+}
+
+async function _getBoard(userId: string) {
+  "use cache";
 
   const board = await Board.findOne({
     userId,
-  })
-    .populate({
-      path: "columns",
-      populate: {
-        path: "jobApplications",
-        // model: "JobApplication",
-      },
-    })
-    .lean();
+  }).populate({
+    path: "columns",
+    populate: {
+      path: "jobApplications",
+      // model: "JobApplication",
+    },
+  });
 
   if (!board) return null;
 
-  return {
-    ...board,
-    _id: board._id.toString(),
-    columns: board.columns.map((col: any) => ({
-      ...col,
-      _id: col._id.toString(),
-      boardId: col.boardId.toString(),
-      jobApplications: col.jobApplications.map((job: any) => ({
-        ...job,
-        _id: job._id.toString(),
-        columnId: job.columnId.toString(),
-        boardId: job.boardId.toString(),
-        // Convert Dates to strings
-        createdAt: job.createdAt?.toISOString(),
-        updatedAt: job.updatedAt?.toISOString(),
-      })),
-    })),
-  };
+  return JSON.parse(JSON.stringify(board.toObject ? board.toObject() : board));
 }
 
 async function DashboardPage() {

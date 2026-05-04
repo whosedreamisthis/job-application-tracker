@@ -82,13 +82,13 @@ export default function JobApplicationCard({
   }
 
   async function handleMove(newColumnId: string) {
-    try {
-      const result = await updateJobApplication(job._id, {
-        columnId: newColumnId,
-      });
-    } catch (err) {
-      console.error("Failed to move job application: ", err);
-    }
+    // try {
+    //   const result = await updateJobApplication(job._id, {
+    //     columnId: newColumnId,
+    //   });
+    // } catch (err) {
+    //   console.error("Failed to move job application: ", err);
+    // }
   }
   return (
     <>
