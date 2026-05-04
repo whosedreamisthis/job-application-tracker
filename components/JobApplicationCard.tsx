@@ -26,6 +26,10 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import React, { useState } from "react";
+import {
+  deleteJobApplication,
+  updateJobApplication,
+} from "@/actions/job-application.ts";
 interface JobApplicationCardProps {
   job: JobApplication;
   columns: Column[];
@@ -52,43 +56,43 @@ export default function JobApplicationCard({
 
   async function handleUpdate(e: React.FormEvent) {
     e.preventDefault();
-    // try {
-    //   const result = await updateJobApplication(job._id, {
-    //     ...formData,
-    //     tags: formData.tags
-    //       .split(",")
-    //       .map((tag) => tag.trim())
-    //       .filter((tag) => tag.length > 0),
-    //   });
-    //
-    //   if (!result.error) {
-    //     setIsEditing(false);
-    //   }
-    // } catch (err) {
-    //   console.error("Failed to move job application: ", err);
-    // }
+    try {
+      const result = await updateJobApplication(job._id, {
+        ...formData,
+        tags: formData.tags
+          .split(",")
+          .map((tag) => tag.trim())
+          .filter((tag) => tag.length > 0),
+      });
+
+      if (!result.error) {
+        setIsEditing(false);
+      }
+    } catch (err) {
+      console.error("Failed to move job application: ", err);
+    }
   }
 
   async function handleDelete() {
-    // try {
-    //   const result = await deleteJobApplication(job._id);
-    //
-    //   if (result.error) {
-    //     console.error("Failed to delete job application:", result.error);
-    //   }
-    // } catch (err) {
-    //   console.error("Failed to move job application: ", err);
-    // }
+    try {
+      const result = await deleteJobApplication(job._id);
+
+      if (result.error) {
+        console.error("Failed to delete job application:", result.error);
+      }
+    } catch (err) {
+      console.error("Failed to move job application: ", err);
+    }
   }
 
   async function handleMove(newColumnId: string) {
-    // try {
-    //   const result = await updateJobApplication(job._id, {
-    //     columnId: newColumnId,
-    //   });
-    // } catch (err) {
-    //   console.error("Failed to move job application: ", err);
-    // }
+    try {
+      const result = await updateJobApplication(job._id, {
+        columnId: newColumnId,
+      });
+    } catch (err) {
+      console.error("Failed to move job application: ", err);
+    }
   }
   return (
     <>

@@ -28,6 +28,7 @@ import board from "@/lib/models/board.ts";
 import CreateJobApplicationDialog from "@/components/CreateJobDialog.tsx";
 import { JobApplication } from "@/lib/models/models.types.ts";
 import JobApplicationCard from "@/components/JobApplicationCard.tsx";
+import { useBoard } from "@/hooks/useBoards.ts";
 
 interface KanbanBoardProps {
   board: Board;
@@ -135,7 +136,7 @@ function SortableJobCard({
 }
 
 const KanbanBoard = ({ board, userId }: KanbanBoardProps) => {
-  const columns = board.columns;
+  const { columns, moveJob } = useBoard(board);
   const sortedColumns = columns?.sort((a, b) => a.order - b.order) || [];
 
   return (
