@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -12,8 +12,36 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { signIn } from "@/lib/auth/auth-client.ts";
 
 const SignInPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+  async function handleSubmit(e: React.SubmitEvent) {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      const result = await signIn.email({ email, password });
+
+      if (result.error) {
+        setError(result.error.message ?? "Failed to sign in");
+      } else {
+        router.push("/dashboard");
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  }
   return (
     <div className="flex min-h-[calc(100vh-5rem)] items-center justify-center bg-white p-4">
       <Card className="w-full max-w-md border-gray-200 shadow-lg">
@@ -25,8 +53,13 @@ const SignInPage = () => {
             Enter your credentials to access your account
           </CardDescription>
         </CardHeader>
-        <form className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <CardContent className="space-y-4">
+            {error && (
+              <div className="rounded-md bg-destructive/15 p-3 text-sm text-destructive">
+                {error}
+              </div>
+            )}
             <div className="space-y-2">
               <Label htmlFor="email" className="text-gray-700">
                 Email
@@ -37,6 +70,8 @@ const SignInPage = () => {
                 placeholder="jane@example.com"
                 required
                 className="border-gray-300 focus:border-primary focus:ring-primary"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="space-y-2">
@@ -50,6 +85,8 @@ const SignInPage = () => {
                 required
                 minLength={8}
                 className="border-gray-300 focus:border-primary focus:ring-primary"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </CardContent>
@@ -57,8 +94,9 @@ const SignInPage = () => {
             <Button
               type="submit"
               className="w-full bg-primary hover:bg-primary/90"
+              disabled={loading}
             >
-              Sign Up
+              Sign In
             </Button>
 
             <p className="text-center text-sm text-gray-600 flex gap-2">
